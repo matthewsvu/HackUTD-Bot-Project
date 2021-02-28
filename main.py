@@ -1,3 +1,4 @@
+from keep_alive import keep_alive
 import discord
 import find
 import grades
@@ -29,5 +30,7 @@ async def on_message(message):
     if message.content.startswith('$grades'):
         await grades.get_grades(message)
 
+
+keep_alive()
 
 client.run(key)
