@@ -1,15 +1,15 @@
 from keep_alive import keep_alive
 import discord
+import json
 import find
 import grades
 
 client = discord.Client()
 
 # open the key needed to run the bot
-f = open("key.txt", "r")
-key = f.read()
-f.close()
-
+with open('config.json') as f:
+  data = json.load(f)
+key = data['key']
 
 @client.event
 async def on_ready():
