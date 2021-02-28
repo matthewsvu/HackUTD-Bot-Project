@@ -27,6 +27,9 @@ async def plot_grades(message, course, term, url):
         response_dict = response.json()
         misc.jprint(response_dict)
         data = response_dict["data"]
+        for section in data:
+            for grade in section["grades"]:
+                
     # if this fails, return error message
     except (IndexError, RuntimeError):
         await message.channel.send("The course or term could not be found.")
