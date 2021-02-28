@@ -30,6 +30,9 @@ async def on_message(message):
     if message.content.startswith('$find'): # if any message starts with $find, get professor information
         await get_professor(message)
 
+    if message.content.startswith('$grades'):
+        await get_grades(message)
+
 
 async def get_professor(message): # extract professor's name from the command
 
