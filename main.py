@@ -40,14 +40,14 @@ async def get_professor(message):
         last_name = arr[2]
         formatted_name = first_name + "%20" + last_name
         url = "https://coursebook-api.herokuapp.com/v1/prof/" + formatted_name
-        output_prof(first_name, last_name, url)
+        await output_prof(message, first_name, last_name, url)
 
     except (IndexError):
         await message.channel.send("Invalid format. Please enter a name like 'John Smith'")
 
 
-async def output_prof(first_name, last_name, url)
-     try:
+async def output_prof(message, first_name, last_name, url):
+    try:
         response = requests.get(url)
         print(response.status_code)
         response_dict = response.json()
