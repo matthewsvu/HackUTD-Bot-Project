@@ -3,6 +3,7 @@ import discord
 import json
 import find
 import grades
+import rmp
 
 client = discord.Client()
 
@@ -29,6 +30,9 @@ async def on_message(message):
 
     if message.content.startswith('$grades'):
         await grades.get_grades(message)
+
+    if message.content.startswith('$rmp'):
+        await rmp.get_rating(message)
 
 
 keep_alive()
