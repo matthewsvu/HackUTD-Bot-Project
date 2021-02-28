@@ -1,4 +1,4 @@
-from RateMyProfessorPyAPI import ratemyprofessor as rate
+import RateMyProfessorPyAPI.ratemyprofessor as rate
 import discord
 import math
 
