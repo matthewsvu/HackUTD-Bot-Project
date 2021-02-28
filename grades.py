@@ -1,10 +1,11 @@
 import requests
 import json
-import matplotlib
+import matplotlib as plt
+import numpy as np
 import misc
 
 
-async def get_grades(message):  # extract professor's name from the command
+async def get_grades(message):  # extract course and terms from the command
 
     try:
         command = message.content
@@ -25,7 +26,7 @@ async def plot_grades(message, course, term, url):
         # set a list equal to the json list from the API of UTD Coursebook
         response_dict = response.json()
         misc.jprint(response_dict)
-
+        data = response_dict["data"]
     # if this fails, return error message
     except (IndexError, RuntimeError):
         await message.channel.send("The course or term could not be found.")
