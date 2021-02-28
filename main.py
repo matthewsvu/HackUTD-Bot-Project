@@ -1,3 +1,4 @@
+from keep_alive import keep_alive
 import discord
 import matplotlib
 import requests
@@ -64,5 +65,7 @@ async def output_prof(message, first_name, last_name, url):
     except (IndexError, RuntimeError):
         await message.channel.send(f"The professor '{first_name.title()} {last_name.title()}' could not be found.")
 
+
+keep_alive()
 
 client.run(key)
