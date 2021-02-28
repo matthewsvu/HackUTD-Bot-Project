@@ -21,13 +21,21 @@ async def get_grades(message):  # extract course and terms from the command
 
 async def plot_grades(message, course, term, url):
     try:
+        sum_grades = {'A+': 0, 'A': 0, 'A-': 0, 'B+': 0,
+                      'B': 0, 'B-': 0, 'C+': 0, 'C': 0, 'C-': 0, 'D+': 0, 'D': 0, 'D-': 0, 'F': 0, 'W': 0, 'CR': 0, 'NC': 0}
         response = requests.get(url)
         print(response.status_code)
         # set a list equal to the json list from the API of UTD Coursebook
         response_dict = response.json()
-        misc.jprint(response_dict)
+        # misc.jprint(response_dict)
         data = response_dict["data"]
-    # if this fails, return error message
+        for section in data:
+            grade_dict = section["grades"]
+            for grade in grade_dict.keys():
+                sum_grades[grade] = sum_grades[grade] + grade_dict[grade]
+
+            # if this fails, return error message
+        print(sum_grades)
     except (IndexError, RuntimeError):
         await message.channel.send("The course or term could not be found.")
 
