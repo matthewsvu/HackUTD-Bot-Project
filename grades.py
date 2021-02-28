@@ -1,8 +1,8 @@
 import requests
 import json
-import matplotlib as plt
-import numpy as np
+import matplotlib.pyplot as plt
 import misc
+import discord
 
 
 async def get_grades(message):  # extract course and terms from the command
@@ -22,7 +22,12 @@ async def get_grades(message):  # extract course and terms from the command
 async def plot_grades(message, course, term, url):
     try:
         sum_grades = {'A+': 0, 'A': 0, 'A-': 0, 'B+': 0,
-                      'B': 0, 'B-': 0, 'C+': 0, 'C': 0, 'C-': 0, 'D+': 0, 'D': 0, 'D-': 0, 'F': 0, 'W': 0, 'CR': 0, 'NC': 0}
+                      'B': 0, 'B-': 0, 'C+': 0, 'C': 0, 'C-': 0, 'D+': 0, 'D': 0, 'D-': 0, 'F': 0, 'W': 0}
+        term_string = {"20s": "Spring 2020", "19s": "Spring 2019",
+                       "18s": "Spring 2018", "19f": "Fall 2019", "18f": "Fall 2018", "17f": "Fall 2017"}
+        color_map = ['darkgreen', 'green',
+                     'lime', 'greenyellow', 'yellowgreen', 'goldenrod', 'gold', 'orange', 'darkorange', 'orangered', 'red', 'firebrick',
+                     'darkred', 'darkgray']
         response = requests.get(url)
         print(response.status_code)
         # set a list equal to the json list from the API of UTD Coursebook
@@ -34,10 +39,20 @@ async def plot_grades(message, course, term, url):
             for grade in grade_dict.keys():
                 sum_grades[grade] = sum_grades[grade] + grade_dict[grade]
 
-            # if this fails, return error message
-        print(sum_grades)
-    except (IndexError, RuntimeError):
+        valid_class = False
+        for num in sum_grades.values():
+            if num != 0:
+                valid_class = True
+        if valid_class:
+            keys = sum_grades.keys()
+            values = sum_grades.values()
+            plt.bar(keys, values, color=color_map)
+            plt.title(f"{course.upper()} - {term_string[term]}")
+            plt.savefig('img/plt.png')
+            await message.channel.send(file=discord.File('img/plt.png'))
+        else:
+            await message.channel.send("The course or term could not be found.")
+
+    # if this fails, return error message
+    except (IndexError, RuntimeError, KeyError):
         await message.channel.send("The course or term could not be found.")
-
-
-# async def display_graph():
