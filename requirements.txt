@@ -3,5 +3,4 @@ discord.py==1.6.0
 requests==2.18.4
 matplotlib==3.3.2
 RateMyProfessorPyAPI==1.2.1
-ratemyprofessor>=1.0
 bootstrap-flask==1.5.1
