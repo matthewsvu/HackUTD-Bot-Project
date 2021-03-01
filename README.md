@@ -12,8 +12,15 @@ $grades <course> <term> <first_name> <last_name>
 $find <first> <last>
 ```
 With `$rmp`, users can get a summary of any professor's reviews from [ratemyprofessors](https://www.ratemyprofessors.com/) instantly.  
+![$rmp demo](demo\rmp.png)
+---
 The `$grades` command displays a score distribution for courses and allows users to specify specific professors to display.  
-Using `$find`, students can easily access professor contact information.
+![$grades demo 1](demo\grades.png)  
+![$grades demo 2](demo\gradesunique.png)
+---
+Using `$find`, students can easily access professor contact information.  
+![$rmp demo](demo\rmp.png)
+---
 ## How we built CourseBot
 We created a Discord bot using Python, Flask, CourseBookAPI, and RateMyProfessorPyAPI. Our Flask web server is deployed on Heroku for 24/7 hosting.  
 __Backend__: Our bot utilizes common Python libraries such as discord.py and matplotlib to generate graphs and output messages.  
