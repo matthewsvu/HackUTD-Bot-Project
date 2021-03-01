@@ -23,7 +23,7 @@ The `$grades` command displays a score distribution for courses and allows users
 
 Using `$find`, students can easily access professor contact information.  
   
-![$rmp demo](./demo/rmp.png)  
+![$rmp demo](./demo/find.png)  
 
 ## How we built CourseBot
 We created a Discord bot using Python, Flask, CourseBookAPI, and RateMyProfessorPyAPI. Our Flask web server is deployed on Heroku for 24/7 hosting.  
