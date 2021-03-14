@@ -49,7 +49,7 @@ async def get_rating(message):
     except (RuntimeError, IndexError, AttributeError):
         await message.channel.send("The professor's ratings cannot be found.")
 
-async def get_help():
+async def get_help(message):
 
     output = f"4 commands:\n```$rmp <first> <last>\n$grades <course> <term>\n$grades <course> <term> <first_name> <last_name>\n$find <first> <last>```\n"
     output += f"``$rmp`` fetches ratings from ratemyprofessor.com instantly.\n"
