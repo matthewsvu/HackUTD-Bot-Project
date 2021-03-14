@@ -1,8 +1,11 @@
 RateMyProfessorPyAPI==1.2.1
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 RateMyProfessorAPI==1.2.0
 >>>>>>> 56441d84ec7a7471c1cfe84d1835f98301a12572
+=======
+>>>>>>> d91293261d5e62bcf7fa9d8546ba995501207cac
 flask==0.12.2
 discord.py==1.6.0
 requests==2.18.4
