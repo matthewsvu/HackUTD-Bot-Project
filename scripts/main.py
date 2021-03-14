@@ -33,6 +33,7 @@ async def on_message(message):
 
     if message.content.startswith('$rmp'):
         await rmp.get_rating(message)
+        
     if message.content.startswith('$help'):
         await rmp.get_help()
 
