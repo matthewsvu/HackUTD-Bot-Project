@@ -2,7 +2,7 @@ import ratemyprofessor as rate
 import discord
 import math
 import requests as requests
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 
 school = "The University of Texas at Dallas"
 
