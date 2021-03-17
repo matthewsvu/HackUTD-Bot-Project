@@ -7,9 +7,9 @@ import rmp
 
 client = discord.Client()
 
-# open the key needed to run the bot
-with open('key.txt') as f:
-    key = f.readlines()[0]
+with open('config.json') as f:
+  data = json.load(f)
+key = data['key']
 
 
 @client.event
