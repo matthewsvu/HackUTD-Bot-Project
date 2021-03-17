@@ -37,7 +37,7 @@ async def output_prof(message, first_name, last_name, url):  # output professor 
             color=0x008542
         )
         embed.add_field(name="Email",
-                        value=data['email'.lower(), inline=False)
+                        value=data['email'].lower(), inline=False)
 
         for key in data.keys():  # look through entire dictionary
             if key != "name" and key != 'title' and key != "email":  # add the contents of dictionary to the output

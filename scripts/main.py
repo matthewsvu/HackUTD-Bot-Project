@@ -35,7 +35,7 @@ async def on_message(message):
         await rmp.get_rating(message)
 
     if message.content.startswith('$help'):
-        await rmp.get_help(message)
+        await misc.get_help(message)
 
 keep_alive()
 
