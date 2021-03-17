@@ -4,6 +4,7 @@ import json
 import find
 import grades
 import rmp
+import misc
 
 client = discord.Client()
 
@@ -30,12 +31,15 @@ async def on_message(message):
 
     if message.content.startswith('$grades'):
         await grades.get_grades(message)
-
+        
+    if message.content.startswith('$tags'):
+        await rmp.get_tags(message)
+    
     if message.content.startswith('$rmp'):
         await rmp.get_rating(message)
 
     if message.content.startswith('$help'):
-        await rmp.get_help(message)
+        await misc.get_help(message)
 
 keep_alive()
 
