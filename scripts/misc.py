@@ -16,7 +16,7 @@ async def get_help(message):
     )
     command = "Use `$find` to display any professor's contact information\n"
     command += "Use `$grades` to display a graph of student grades for particular course or professor\n"
-    command += "Use `$rmp` to fetch ratings for any professor"
+    command += "Use `$rmp` to fetch RateMyProfessor ratings for any professor"
     embed.add_field(
         name="Command Usage",
         value=command,
@@ -26,7 +26,7 @@ async def get_help(message):
     example = "`$find John Cole` - outputs John Cole's contact information\n\n"
     example += "`$grades MATH2414 20s` - outputs a graph of MATH2414 grades from Spring 2020\n\n"
     example += "`$grades CS3340 19f Richard Goodrum` - outputs a graph of all Richard Goodrum's CS3340 grades from Fall 2019\n\n"
-    example += "`$rmp Theresa Towner` - ouputs a summary of Theresa Towner's ratings."
+    example += "`$rmp Theresa Towner` - outputs a summary of Theresa Towner's ratings."
     embed.add_field(
         name="Example Commands",
         value=example,
