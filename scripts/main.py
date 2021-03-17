@@ -7,7 +7,7 @@ import rmp
 
 client = discord.Client()
 
-with open('config.json') as f:
+with open('scripts/config.json') as f:
   data = json.load(f)
 key = data['key']
 
