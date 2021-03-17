@@ -1,5 +1,6 @@
 import requests
 import json
+import discord
 
 
 async def get_professor(message):  # extract professor's name from the command
@@ -19,30 +20,52 @@ async def get_professor(message):  # extract professor's name from the command
 
     # if this fails, return error message
     except (IndexError):
-        await message.channel.send("Invalid format. Please enter a name like 'John Smith'")
+        await wrong_format(message)
 
 
 async def output_prof(message, first_name, last_name, url):  # output professor information
 
     try:
         response = requests.get(url)
-        print(response.status_code)
         # set a list equal to the json list from the API of UTD Coursebook
         response_dict = response.json()
         data = response_dict["data"][0]  # extract dictionary from the list
 
-        output = "```"  # start creating output
-
-        output += "Name: " + data["name"]  # add name to output, first!
-        output += "\n"
+        emoji = u"\U0001F9D1\U0000200D\U0001F3EB"
+        embed = discord.Embed(
+            title=f"{emoji} {data['name']}, {data['title']}",
+            color=0x008542
+        )
+        embed.add_field(name="Email",
+                        value=data['email'.lower(), inline=False)
 
         for key in data.keys():  # look through entire dictionary
-            if key != "name":  # add the contents of dictionary to the output
-                output += key.title() + ": " + data[key] + '\n'
+            if key != "name" and key != 'title' and key != "email":  # add the contents of dictionary to the output
+                embed.add_field(name=key.title(),
+                                value=data[key], inline=True)
 
-        output += "```"  # end creating output
-        await message.channel.send(output)
+        await message.channel.send(embed=embed)
 
     # if this fails, return error message
     except (IndexError, RuntimeError):
-        await message.channel.send(f"The professor '{first_name.title()} {last_name.title()}' could not be found.")
+        await prof_not_found(message)
+
+
+async def prof_not_found(message):
+    emoji = u"\U0001F50E"
+    embed = discord.Embed(
+        title=f"{emoji} Professor not found",
+        description="The professor could not be found.",
+        color=0xC75B12
+    )
+    await message.channel.send(embed=embed)
+
+
+async def wrong_format(message):
+    emoji = u"\U000026D4"
+    embed = discord.Embed(
+        title=f"{emoji} Incorrect formatting",
+        description="Please blah blah blah",
+        color=0xff0033
+    )
+    await message.channel.send(embed=embed)
