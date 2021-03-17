@@ -13,8 +13,6 @@ Gets the ratings of professors from UTD from the RateMyProfessorAPI
 :param message: The "$rmp <first> <last>
 :return: formatted message of the professor's RateMyProfessor information
 """
-
-
 async def get_rating(message):
     try:
         arr = message.content.strip().split()
@@ -54,15 +52,14 @@ async def get_rating(message):
             title=f"{emoji} {name}{depart}",
             color=0x008542,
         )
-
         embed.add_field(name="Rating", value=rating_stars, inline=False)
         embed.add_field(name="Difficulty", value=diff_stars, inline=False)
         embed.add_field(name="Total Ratings",
-                        value=professor.num_ratings, inline=False)
+                    value=professor.num_ratings, inline=False)
         embed.add_field(name="Would Take Again",
-                        value=take_again, inline=False)
+                    value=take_again, inline=False)
 
-        await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError):
         await prof_not_found(message)
 
@@ -80,10 +77,11 @@ async def get_tags(message):
     url = "https://www.ratemyprofessors.com/search.jsp?queryoption=HEADER&queryBy=teacherName" \
           "&schoolName=%s&schoolID=%s&query=%s" % (school_name.name, school_name.id, professor_name)
     page = requests.get(url)
-
+ 
     # parse the html elements for the professor's tags
     soup = bs(page.text, "html.parser")
     prof_tags = soup.findAll("span", {"class": "TeacherTags_TagsContainer-sc-16vmh1y-0 dbxJaW" })
+    
     if(len(prof_tags) == 0):
         await message.channel.send("Professor's tags could not be found.")
         return
@@ -103,4 +101,3 @@ async def prof_not_found(message):
         color=0xC75B12
     )
     await message.channel.send(embed=embed)
-
