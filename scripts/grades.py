@@ -29,7 +29,7 @@ async def get_grades(message):  # extract course and terms from the command
 
     # if this fails, return error message
     except (IndexError):
-        await message.channel.send("Invalid format. Please enter a term and course like 'cs1337 20s'")
+        await wrong_format(message)
 
 
 async def output_graph(message, sum_grades, course, term, prof=None):
@@ -72,7 +72,7 @@ async def output_graph(message, sum_grades, course, term, prof=None):
 
         # initializes the output embed
         embed = discord.Embed(
-            title=fig_name, description=descr, color=0xe87500
+            title=fig_name, description=descr, color=0x008542
         )
 
         # writes the current figure's bytes to a variable and creates a new discord file with it
@@ -89,7 +89,7 @@ async def output_graph(message, sum_grades, course, term, prof=None):
         await message.channel.send(embed=embed, file=chart)
     else:
         # send an error message to the channel
-        await message.channel.send("The course or term could not be found.")
+        await course_not_found(message)
 
 
 async def plot_grades(message, course, term, url):
@@ -116,7 +116,7 @@ async def plot_grades(message, course, term, url):
 
     # if this fails, return error message
     except (IndexError, RuntimeError, KeyError):
-        await message.channel.send("The course or term could not be found.")
+        await course_not_found(message)
 
 # $grades cs1337 19f jason smith
 
@@ -149,4 +149,24 @@ async def plot_prof_grades(message, course, term, url, first_name, last_name):
 
     # if this fails, return error message
     except (IndexError, RuntimeError, KeyError):
-        await message.channel.send("The course or term could not be found.")
+        await course_not_found(message)
+
+
+async def course_not_found(message):
+    emoji = u"\U0001F50E"
+    embed = discord.Embed(
+        title=f"{emoji} Records not found",
+        description="The course or professor could not be found.",
+        color=0xC75B12
+    )
+    await message.channel.send(embed=embed)
+
+
+async def wrong_format(message):
+    emoji = u"\U000026D4"
+    embed = discord.Embed(
+        title=f"{emoji} Incorrect formatting",
+        description="Please enter blah blah blah idk what to put ",
+        color=0xff0033
+    )
+    await message.channel.send(embed=embed)

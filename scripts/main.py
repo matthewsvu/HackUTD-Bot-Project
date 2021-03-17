@@ -8,9 +8,9 @@ import rmp
 client = discord.Client()
 
 # open the key needed to run the bot
-with open('config.json') as f:
-  data = json.load(f)
-key = data['key']
+with open('key.txt') as f:
+    key = f.readlines()[0]
+
 
 @client.event
 async def on_ready():
@@ -33,7 +33,7 @@ async def on_message(message):
 
     if message.content.startswith('$rmp'):
         await rmp.get_rating(message)
-        
+
     if message.content.startswith('$help'):
         await rmp.get_help(message)
 
