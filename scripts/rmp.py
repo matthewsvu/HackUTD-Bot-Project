@@ -13,8 +13,6 @@ Gets the ratings of professors from UTD from the RateMyProfessorAPI
 :param message: The "$rmp <first> <last>
 :return: formatted message of the professor's RateMyProfessor information
 """
-
-
 async def get_rating(message):
     try:
         arr = message.content.strip().split()
@@ -54,24 +52,27 @@ async def get_rating(message):
             title=f"{emoji} {name}{depart}",
             color=0x008542,
         )
-
-<<<<<<< HEAD
-async def get_help(message):
-=======
         embed.add_field(name="Rating", value=rating_stars, inline=False)
         embed.add_field(name="Difficulty", value=diff_stars, inline=False)
         embed.add_field(name="Total Ratings",
-                        value=professor.num_ratings, inline=False)
+                    value=professor.num_ratings, inline=False)
         embed.add_field(name="Would Take Again",
-                        value=take_again, inline=False)
+                    value=take_again, inline=False)
 
-        await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError):
         await prof_not_found(message)
->>>>>>> 52badc1f4fdfe1cc855f934c4c2c1b90e66ed453
 
+async def get_help(message):
+    output = f"4 commands:\n```$rmp <first> <last>\n$grades <course> <term>\n$grades <course> <term> <first_name> <last_name>\n$find <first> <last>```\n"
+    output += f"``$rmp`` fetches ratings from ratemyprofessor.com instantly.\n"
+    output += f"``$grades`` displays a graph of student grades for selected course and term, with the option of adding a specific professor.\n"
+    output += f"``$find`` displays a selected professor's contact information.\n"
+    output += f"**Format**\n"
+    output += f"``<term>``: <two-digit year><single letter semester> (ie. Spring 2020 is 20s, Fall 2019 is 19F)\n"
+    output += f"``<course>``: <subject code><number> (ie. cs1337, CHEM1311)\n"
+    output += f"``<first>`` and ``<last>``: Valid professor first and last names"
 
-<<<<<<< HEAD
     await message.channel.send(output)
 
 async def get_tags(message):
@@ -88,10 +89,11 @@ async def get_tags(message):
     url = "https://www.ratemyprofessors.com/search.jsp?queryoption=HEADER&queryBy=teacherName" \
           "&schoolName=%s&schoolID=%s&query=%s" % (school_name.name, school_name.id, professor_name)
     page = requests.get(url)
-
+ 
     # parse the html elements for the professor's tags
     soup = bs(page.text, "html.parser")
     prof_tags = soup.findAll("span", {"class": "TeacherTags_TagsContainer-sc-16vmh1y-0 dbxJaW" })
+    
     if(len(prof_tags) == 0):
         await message.channel.send("Professor's tags could not be found.")
         return
@@ -102,7 +104,7 @@ async def get_tags(message):
         output += tag.get_text() + '\n'
     
     await message.channel.send(output)
-=======
+
 async def prof_not_found(message):
     emoji = u"\U0001F50E"
     embed = discord.Embed(
@@ -111,4 +113,3 @@ async def prof_not_found(message):
         color=0xC75B12
     )
     await message.channel.send(embed=embed)
->>>>>>> 52badc1f4fdfe1cc855f934c4c2c1b90e66ed453

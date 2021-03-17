@@ -39,11 +39,7 @@ async def on_message(message):
         await rmp.get_rating(message)
 
     if message.content.startswith('$help'):
-<<<<<<< HEAD
-        await rmp.get_help(message)
-=======
         await misc.get_help(message)
->>>>>>> 52badc1f4fdfe1cc855f934c4c2c1b90e66ed453
 
 keep_alive()
 
