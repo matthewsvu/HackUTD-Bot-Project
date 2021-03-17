@@ -4,6 +4,7 @@ import json
 import find
 import grades
 import rmp
+import misc
 
 client = discord.Client()
 
