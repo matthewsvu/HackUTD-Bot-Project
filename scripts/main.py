@@ -8,7 +8,7 @@ import rmp
 client = discord.Client()
 
 # open the key needed to run the bot
-with open('key.txt') as f:
+with open('../key.txt') as f:
     key = f.readlines()[0]
 
 
