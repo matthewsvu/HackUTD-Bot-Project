@@ -1,5 +1,6 @@
 import ratemyprofessor as rate
 import discord
+from bs4 import BeautifulSoup as bs
 import math
 import requests as requests
 # from bs4 import BeautifulSoup
@@ -49,7 +50,7 @@ async def get_rating(message):
     except (RuntimeError, IndexError, AttributeError):
         await message.channel.send("The professor's ratings cannot be found.")
 
-async def get_help():
+async def get_help(message):
 
     output = f"4 commands:\n```$rmp <first> <last>\n$grades <course> <term>\n$grades <course> <term> <first_name> <last_name>\n$find <first> <last>```\n"
     output += f"``$rmp`` fetches ratings from ratemyprofessor.com instantly.\n"
@@ -60,4 +61,33 @@ async def get_help():
     output += f"``<course>``: <subject code><number> (ie. cs1337, CHEM1311)\n"
     output += f"``<first>`` and ``<last>``: Valid professor first and last names"
 
+    await message.channel.send(output)
+
+async def get_tags(message):
+    arr = message.content.strip().split()
+    first_name = arr[1]
+    last_name = arr[2]
+    professor_name = first_name.title() + " " + last_name.title()
+    professor_name.replace(' ', '+')
+
+    # get UTD School object from API
+    school_name = rate.get_school_by_name(school)
+
+    # get the url of the professor's RMP page
+    url = "https://www.ratemyprofessors.com/search.jsp?queryoption=HEADER&queryBy=teacherName" \
+          "&schoolName=%s&schoolID=%s&query=%s" % (school_name.name, school_name.id, professor_name)
+    page = requests.get(url)
+
+    # parse the html elements for the professor's tags
+    soup = bs(page.text, "html.parser")
+    prof_tags = soup.findAll("span", {"class": "TeacherTags_TagsContainer-sc-16vmh1y-0 dbxJaW" })
+    if(len(prof_tags) == 0):
+        await message.channel.send("Professor's tags could not be found.")
+        return
+    
+    # output the tags in a list
+    output = ''
+    for tag in prof_tags:
+        output += tag.get_text() + '\n'
+    
     await message.channel.send(output)
