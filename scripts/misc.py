@@ -9,14 +9,27 @@ def jprint(obj):
 
 
 async def get_help(message):
+    emoji = u"\U00002139\U0000FE0F"
+    embed = discord.Embed(
+        title=f"{emoji} CourseBot Instructions",
+        color=0x3399FF
+    )
+    command = "Use `$find` to display any professor's contact information\n"
+    command += "Use `$grades` to display a graph of student grades for particular course or professor\n"
+    command += "Use `$rmp` to fetch ratings for any professor"
+    embed.add_field(
+        name="Command Usage",
+        value=command,
+        inline=False
+    )
 
-    output = f"4 commands:\n```$rmp <first> <last>\n$grades <course> <term>\n$grades <course> <term> <first_name> <last_name>\n$find <first> <last>```\n"
-    output += f"``$rmp`` fetches ratings from ratemyprofessor.com instantly.\n"
-    output += f"``$grades`` displays a graph of student grades for selected course and term, with the option of adding a specific professor.\n"
-    output += f"``$find`` displays a selected professor's contact information.\n"
-    output += f"**Format**\n"
-    output += f"``<term>``: <two-digit year><single letter semester> (ie. Spring 2020 is 20s, Fall 2019 is 19F)\n"
-    output += f"``<course>``: <subject code><number> (ie. cs1337, CHEM1311)\n"
-    output += f"``<first>`` and ``<last>``: Valid professor first and last names"
-
-    await message.channel.send(output)
+    example = "`$find John Cole` - outputs John Cole's contact information\n\n"
+    example += "`$grades MATH2414 20s` - outputs a graph of MATH2414 grades from Spring 2020\n\n"
+    example += "`$grades CS3340 19f Richard Goodrum` - outputs a graph of all Richard Goodrum's CS3340 grades from Fall 2019\n\n"
+    example += "`$rmp Theresa Towner` - ouputs a summary of Theresa Towner's ratings."
+    embed.add_field(
+        name="Example Commands",
+        value=example,
+        inline=False
+    )
+    await message.channel.send(embed=embed)

@@ -13,6 +13,8 @@ Gets the ratings of professors from UTD from the RateMyProfessorAPI
 :param message: The "$rmp <first> <last>
 :return: formatted message of the professor's RateMyProfessor information
 """
+
+
 async def get_rating(message):
     try:
         arr = message.content.strip().split()
@@ -52,12 +54,13 @@ async def get_rating(message):
             title=f"{emoji} {name}{depart}",
             color=0x008542,
         )
+
         embed.add_field(name="Rating", value=rating_stars, inline=False)
         embed.add_field(name="Difficulty", value=diff_stars, inline=False)
         embed.add_field(name="Total Ratings",
-                    value=professor.num_ratings, inline=False)
+                        value=professor.num_ratings, inline=False)
         embed.add_field(name="Would Take Again",
-                    value=take_again, inline=False)
+                        value=take_again, inline=False)
 
         await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError):
@@ -93,6 +96,7 @@ async def get_tags(message):
         await message.channel.send(output_format)
     except(RuntimeError, IndexError, AttributeError):
         await prof_not_found(message)
+
 
 async def prof_not_found(message):
     emoji = u"\U0001F50E"

@@ -31,10 +31,10 @@ async def on_message(message):
 
     if message.content.startswith('$grades'):
         await grades.get_grades(message)
-        
+
     if message.content.startswith('$tags'):
         await rmp.get_tags(message)
-    
+
     if message.content.startswith('$rmp'):
         await rmp.get_rating(message)
 
