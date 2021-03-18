@@ -1,2 +1,2 @@
 worker: python scripts/main.py
-web: gunicorn app:app
+web: gunicorn keep_alive:app
