@@ -59,7 +59,7 @@ async def get_rating(message):
             take_again = "N/A"
         
         # Scrape top tags and most helpful rating from RMP website
-        tags, helpful_rating = get_tags(professor)
+        tags, helpful_rating = get_more_rmp_info(professor)
         
         # creates a discord embed object for the professor
         emoji = u"\U0001F9D1\U0000200D\U0001F3EB"
@@ -93,7 +93,7 @@ Basic webscraping function that retrieves a selected professor's top tags and mo
 :return string, string either output or error message
 """
 
-def get_tags(professor : rate.Professor):
+def get_more_rmp_info(professor : rate.Professor):
     # get the url of the professor's RMP page
     url = f"https://www.ratemyprofessors.com/ShowRatings.jsp?tid={professor.id}" 
     page = requests.get(url)
