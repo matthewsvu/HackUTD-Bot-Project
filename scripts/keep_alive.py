@@ -9,8 +9,8 @@ app = Flask('')
 def home():
     return render_template('index.html')
 
-def run():
-    app.run(host='0.0.0.0')
+if __name__ == "__main__":
+    app.run()
 
 def keep_alive():
     t = Thread(target=run)
