@@ -12,7 +12,6 @@ client = discord.Client()
 with open('key.txt') as f:
     key = f.readlines()[0]
 
-
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))

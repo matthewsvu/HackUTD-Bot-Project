@@ -6,7 +6,6 @@ import discord
 async def get_professor(message):  # extract professor's name from the command
 
     try:
-
         command = message.content
         arr = command.strip().split()  # strip whitespace and split the message into an array
         first_name = arr[1]  # extract a first name
