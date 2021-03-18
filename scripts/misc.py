@@ -7,7 +7,11 @@ def jprint(obj):
     text = json.dumps(obj, sort_keys=True, indent=4)
     print(text)
 
-
+"""
+A help function that displays an embed of all the possible commands for the bot
+:param message:
+:return embed:
+"""
 async def get_help(message):
     emoji = u"\U00002139\U0000FE0F"
     embed = discord.Embed(
