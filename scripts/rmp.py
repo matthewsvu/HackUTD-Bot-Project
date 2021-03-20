@@ -58,8 +58,8 @@ async def get_rating(message):
         else:
             take_again = "N/A"
         
-        # Scrape top tags and most helpful rating from RMP website
-        tags, helpful_rating = get_more_rmp_info(professor)
+        # Scrape top tags and most helpful rating from RMP website + it's url
+        tags, helpful_rating, url = get_more_rmp_info(professor)
         
         # creates a discord embed object for the professor
         emoji = u"\U0001F9D1\U0000200D\U0001F3EB"
@@ -80,7 +80,8 @@ async def get_rating(message):
                         value=tags, inline=False)
         embed.add_field(name="Most Helpful Rating",
                         value=helpful_rating, inline=False)
-
+        embed.add_field(name="Link",
+                        value=url, inline=False)
         await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError) as e:
         log.error(e)
@@ -123,9 +124,9 @@ def get_more_rmp_info(professor : rate.Professor):
     elif helpful_rating == None: # helpful rating could not be found
         return tags_formatted, comment_error_message
     
-    # otherwise output the tags and helpful rating in a formatted manner    
-
-    return tags_formatted, helpful_rating
+    # otherwise output the tags and helpful rating + it's link in a formatted manner    
+    url = f"[RMP Link]({url})"
+    return tags_formatted, helpful_rating, url
 
 """
  A function that return the an embed that the RMP page can't be found when an exception is thrown
