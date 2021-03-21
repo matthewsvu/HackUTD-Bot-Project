@@ -119,17 +119,17 @@ def get_more_rmp_info(professor: rate.Professor):
 
     tags_error_message = f"{professor.name}'s tags could not be found."
     comment_error_message = f"{professor.name}'s most helpful rating could not be found."
-
+    url = f"[RMP Link]({url})"
     # when both elements in html can't be found exit with message
     if prof_tags == None or len(prof_tags) == 0 and helpful_rating == None:
-        return tags_error_message, comment_error_message
+        return tags_error_message, comment_error_message, url
     elif len(prof_tags) == 0 or prof_tags == None:  # tags don't exist for professor
-        return tags_error_message, helpful_rating
+        return tags_error_message, helpful_rating, url
     elif helpful_rating == None:  # helpful rating could not be found
-        return tags_formatted, comment_error_message
+        return tags_formatted, comment_error_message, url
     
     # otherwise output the tags and helpful rating + it's link in a formatted manner    
-    url = f"[RMP Link]({url})"
+    
     return tags_formatted, helpful_rating, url
 
 """
