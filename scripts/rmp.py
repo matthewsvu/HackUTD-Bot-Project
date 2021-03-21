@@ -17,7 +17,6 @@ Gets the ratings of professors from UTD from the RateMyProfessorAPI
 :param message: The "$rmp <first> <last>"
 :return: formatted message of the professor's RateMyProfessor information
 """
-
 async def get_rating(message):
     try:
         # extracts content from message, removes white space
@@ -81,7 +80,7 @@ async def get_rating(message):
                         value=tags, inline=False)
         embed.add_field(name="Most Helpful Rating",
                         value=helpful_rating, inline=False)
-        embed.add_field(name="Link",
+        embed.add_field(name="\u200B",
                         value=url, inline=False)
         await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError) as e:
@@ -95,24 +94,28 @@ Basic webscraping function that retrieves a selected professor's top tags and mo
 :return string, string either output or error message
 """
 
-def get_more_rmp_info(professor : rate.Professor):
+def get_more_rmp_info(professor: rate.Professor):
     # get the url of the professor's RMP page
-    url = f"https://www.ratemyprofessors.com/ShowRatings.jsp?tid={professor.id}" 
+    url = f"https://www.ratemyprofessors.com/ShowRatings.jsp?tid={professor.id}"
     page = requests.get(url)
-        
+
     # parse the html elements for the professor's tags and most helpful rating
     soup = bs(page.text, "html.parser")
-    prof_tags = soup.find('div', 'TeacherTags__TagsContainer-sc-16vmh1y-0 dbxJaW')
-    helpful_rating = soup.find("div", 'HelpfulRating__StyledRating-sc-4ngnti-0 jzbtsI')
+    prof_tags = soup.find(
+        'div', 'TeacherTags__TagsContainer-sc-16vmh1y-0 dbxJaW')
+    helpful_rating = soup.find(
+        "div", 'HelpfulRating__StyledRating-sc-4ngnti-0 jzbtsI')
 
     # join all the top tags together in a formatted manner ex : <tag>, <tag>, <tag>, until one index before the end
     if prof_tags != None:
         prof_tags = prof_tags.findAll("span", {"Tag-bs9vf4-0 hHOVKF"}, limit=5)
-        tags_formatted = ''.join(tag.get_text().title() + ", " if index != len(prof_tags)-1 else tag.get_text().title() for index, tag in enumerate(prof_tags))
+        tags_formatted = ''.join(tag.get_text().title() + ", " if index != len(
+            prof_tags)-1 else tag.get_text().title() for index, tag in enumerate(prof_tags))
 
-    # finds the most helpful rating text    
+    # finds the most helpful rating text
     if helpful_rating != None:
-        helpful_rating = helpful_rating.find('div', 'Comments__StyledComments-dzzyvm-0 gRjWel').get_text()
+        helpful_rating = helpful_rating.find(
+            'div', 'Comments__StyledComments-dzzyvm-0 gRjWel').get_text()
 
     tags_error_message = f"{professor.name}'s tags could not be found."
     comment_error_message = f"{professor.name}'s most helpful rating could not be found."
@@ -120,9 +123,9 @@ def get_more_rmp_info(professor : rate.Professor):
     # when both elements in html can't be found exit with message
     if prof_tags == None or len(prof_tags) == 0 and helpful_rating == None:
         return tags_error_message, comment_error_message
-    elif len(prof_tags) == 0 or prof_tags == None: # tags don't exist for professor
+    elif len(prof_tags) == 0 or prof_tags == None:  # tags don't exist for professor
         return tags_error_message, helpful_rating
-    elif helpful_rating == None: # helpful rating could not be found
+    elif helpful_rating == None:  # helpful rating could not be found
         return tags_formatted, comment_error_message
     
     # otherwise output the tags and helpful rating + it's link in a formatted manner    
