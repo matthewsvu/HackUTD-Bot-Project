@@ -63,6 +63,7 @@ async def get_rating(message):
         
         # creates a discord embed object for the professor
         emoji = u"\U0001F9D1\U0000200D\U0001F3EB"
+        
         embed = discord.Embed(
             title=f"{emoji} {name}{depart}",
             color=0x008542,
@@ -82,6 +83,10 @@ async def get_rating(message):
                         value=helpful_rating, inline=False)
         embed.add_field(name="Link",
                         value=url, inline=False)
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf50c7c568bb42ac05d99dde240390de72277696
         await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError) as e:
         log.error(e)
