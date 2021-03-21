@@ -59,10 +59,11 @@ async def get_rating(message):
             take_again = "N/A"
         
         # Scrape top tags and most helpful rating from RMP website
-        tags, helpful_rating = get_more_rmp_info(professor)
+        tags, helpful_rating, url = get_more_rmp_info(professor)
         
         # creates a discord embed object for the professor
         emoji = u"\U0001F9D1\U0000200D\U0001F3EB"
+        
         embed = discord.Embed(
             title=f"{emoji} {name}{depart}",
             color=0x008542,
@@ -80,6 +81,8 @@ async def get_rating(message):
                         value=tags, inline=False)
         embed.add_field(name="Most Helpful Rating",
                         value=helpful_rating, inline=False)
+        embed.add_field(name="Link",
+                        value=url, inline=False)
 
         await message.channel.send(embed=embed)
     except (RuntimeError, IndexError, AttributeError) as e:
@@ -124,7 +127,7 @@ def get_more_rmp_info(professor : rate.Professor):
         return tags_formatted, comment_error_message
     
     # otherwise output the tags and helpful rating in a formatted manner    
-
+    url = f"[RMP Link]({url})"
     return tags_formatted, helpful_rating
 
 """
