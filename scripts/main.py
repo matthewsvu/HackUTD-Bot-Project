@@ -10,7 +10,7 @@ import misc
 PREFIX = '$'
 client = discord.Client()
 
-with open('scripts/config.json') as f:
+with open('scripts/templates/config.json') as f:
   data = json.load(f)
 key = data['key']
 
