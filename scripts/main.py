@@ -8,6 +8,7 @@ import grades
 import rmp
 import misc
 
+PREFIX = '$'
 client = discord.Client()
 bot = commands.Bot(command_prefix=PREFIX, description='hi')
 
@@ -29,16 +30,16 @@ async def on_message(message):
         return
 
     # if any message starts with $find, get a professor's contact information and details
-    if message.content.startswith('$find'):
+    if message.content.startswith('{PREFIX}find'):
         await find.get_professor(message)
     # return a graph of the grades distribution for a class or a professor's section
-    if message.content.startswith('$grades'):
+    if message.content.startswith('{PREFIX}grades'):
         await grades.get_grades(message)
     # return the RateMyProfessor ratings for a specified professor
-    if message.content.startswith('$rmp'):
+    if message.content.startswith('{PREFIX}rmp'):
         await rmp.get_rating(message)
     # return a list of commands and instructions
-    if message.content.startswith('$help'):
+    if message.content.startswith({PREFIX}help'):
         await misc.get_help(message)
 
 
