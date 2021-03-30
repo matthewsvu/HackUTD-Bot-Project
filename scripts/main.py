@@ -39,7 +39,7 @@ async def on_message(message):
     if message.content.startswith('{PREFIX}rmp'):
         await rmp.get_rating(message)
     # return a list of commands and instructions
-    if message.content.startswith({PREFIX}help'):
+    if message.content.startswith('{PREFIX}help'):
         await misc.get_help(message)
 
 
