@@ -109,8 +109,9 @@ def get_more_rmp_info(professor: rate.Professor):
     # join all the top tags together in a formatted manner ex : <tag>, <tag>, <tag>, until one index before the end
     if prof_tags != None:
         prof_tags = prof_tags.findAll("span", {"Tag-bs9vf4-0 hHOVKF"}, limit=5)
-        tags_formatted = ''.join(tag.get_text().title() + ", " if index != len(
-            prof_tags)-1 else tag.get_text().title() for index, tag in enumerate(prof_tags))
+        tags_formatted = ''.join(tag.get_text().title() + ", " 
+        if index != len(prof_tags)-1 else tag.get_text().title()
+        for index, tag in enumerate(prof_tags))
 
     # finds the most helpful rating text
     if helpful_rating != None:
@@ -120,6 +121,7 @@ def get_more_rmp_info(professor: rate.Professor):
     tags_error_message = f"{professor.name}'s tags could not be found."
     comment_error_message = f"{professor.name}'s most helpful rating could not be found."
     url = f"[RMP Link]({url})"
+
     # when both elements in html can't be found exit with message
     if prof_tags == None or len(prof_tags) == 0 and helpful_rating == None:
         return tags_error_message, comment_error_message, url

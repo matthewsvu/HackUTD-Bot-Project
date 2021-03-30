@@ -156,7 +156,7 @@ async def course_not_found(message):
     emoji = u"\U0001F50E"
     embed = discord.Embed(
         title=f"{emoji} Records not found",
-        description="The course or professor could not be found. The course or professor may not exist, type ``$help``",
+        description="The course or professor could not be found and may not exist, please type ``$help`` for more.",
         color=0xC75B12
     )
     await message.channel.send(embed=embed)

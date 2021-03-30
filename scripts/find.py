@@ -54,7 +54,7 @@ async def prof_not_found(message):
     emoji = u"\U0001F50E"
     embed = discord.Embed(
         title=f"{emoji} Professor not found",
-        description="The professor could not be found.",
+        description="The professor could not be found or may not exist. Please type ``$help`` for more",
         color=0xC75B12
     )
     await message.channel.send(embed=embed)
@@ -64,7 +64,7 @@ async def wrong_format(message):
     emoji = u"\U000026D4"
     embed = discord.Embed(
         title=f"{emoji} Incorrect formatting",
-        description="Please blah blah blah",
+        description="Please type ``$help`` for more",
         color=0xff0033
     )
     await message.channel.send(embed=embed)
