@@ -4,7 +4,6 @@ discord.py==1.6.0
 Flask==0.12.2
 matplotlib==3.3.2
 numpy==1.19.2
-numpydoc==0.7.0
 RateMyProfessorAPI==1.2.0
 RateMyProfessorPyAPI==1.2.1
 requests==2.25.1
