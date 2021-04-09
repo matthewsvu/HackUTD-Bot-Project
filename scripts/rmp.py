@@ -128,7 +128,7 @@ def get_more_rmp_info(professor : rate.Professor):
     
     # otherwise output the tags and helpful rating in a formatted manner    
     url = f"[RMP Link]({url})"
-    return tags_formatted, helpful_rating
+    return tags_formatted, helpful_rating, url
 
 """
  A function that return the an embed that the RMP page can't be found when an exception is thrown
